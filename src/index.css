@@ -1,0 +1,168 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Deep charcoal canvas, warm off-white type, copper accent.
+------------------------------------------------------------------- */
+@theme {
+  --color-charcoal: #171717;
+  --color-ink: #1c1c1c;
+  --color-surface: #202020;
+  --color-surface-2: #262626;
+  --color-line: #303030;
+  --color-line-soft: #242424;
+  --color-cream: #f7f5f0;
+  --color-muted: #a3a3a3;
+  --color-dim: #757575;
+  --color-copper: #c4774a;
+  --color-copper-soft: #d9996f;
+  --color-copper-deep: #8a4f2c;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-charcoal);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+
+  /* Keep anchored sections clear of the fixed header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background-color: var(--color-copper);
+    color: #1a0f07;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[78rem] px-5 sm:px-8 lg:px-12;
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .display-xl {
+    font-size: clamp(2.25rem, 5.6vw, 4.1rem);
+    line-height: 1.03;
+  }
+
+  .display-lg {
+    font-size: clamp(1.85rem, 4vw, 2.75rem);
+    line-height: 1.1;
+  }
+
+  .eyebrow {
+    @apply text-[0.7rem] font-semibold tracking-[0.2em] uppercase;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold whitespace-nowrap transition-colors duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-copper hover:bg-copper-soft text-[#1a0f07];
+  }
+
+  .btn-secondary {
+    @apply border-line text-cream hover:border-copper hover:text-copper border;
+  }
+
+  .tag {
+    @apply border-line-soft bg-surface-2 text-muted inline-flex items-center rounded-md border px-2.5 py-1 text-[0.75rem];
+  }
+
+  .panel {
+    @apply border-line bg-surface/50 rounded-xl border;
+  }
+
+  .hairline {
+    @apply bg-line/70 h-px w-full;
+  }
+
+  /* Browser chrome used for the project previews. */
+  .frame-bar {
+    @apply border-line-soft bg-surface-2 flex items-center gap-2 border-b px-4 py-3;
+  }
+
+  .frame-dot {
+    @apply h-2.5 w-2.5 shrink-0 rounded-full;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Scroll reveal (progressive enhancement — see the <noscript> fallback
+   in index.html and the reduced-motion block below).
+------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------------
+   Motion preferences: disable decorative motion, never hide content.
+------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
